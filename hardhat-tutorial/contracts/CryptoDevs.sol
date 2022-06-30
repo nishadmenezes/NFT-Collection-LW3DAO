@@ -13,7 +13,7 @@ contract CryptoDevs is ERC721Enumerable, Ownable {
        string _baseTokenURI;
 
        //  _price is the price of one Crypto Dev NFT
-       uint256 public _price = 0.01 ether;
+       uint256 public _price = 0.001 ether;
 
        // _paused is used to pause the contract in case of an emergency
        bool public _paused;
@@ -89,7 +89,7 @@ contract CryptoDevs is ERC721Enumerable, Ownable {
       * @dev _baseURI overides the Openzeppelin's ERC721 implementation which by default
       * returned an empty string for the baseURI
       */
-        function _baseURI() internal view override returns (string memory) {
+        function _baseURI() internal view virtual override returns(string memory) {
             return _baseTokenURI;
         }
 
@@ -107,7 +107,7 @@ contract CryptoDevs is ERC721Enumerable, Ownable {
        function withdraw() public onlyOwner {
             address _owner = owner();
             uint256 amount = address(this).balance;
-            (bool sent, ) = _owner.call{ value: amount }("");
+            (bool sent, ) = _owner.call{value:amount}("");
             require(sent, "Failed to send ether");
        }
 
